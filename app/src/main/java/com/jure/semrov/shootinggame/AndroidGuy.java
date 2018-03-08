@@ -31,13 +31,24 @@ public class AndroidGuy
                 mContext.getResources(),R.mipmap.ic_launcher),WIDTH,HEIGHT,false);
     }
 
+    public float getX(){
+        return x;
+    }
+
+    public float getY()
+    {
+        return y;
+    }
+
     public void setBounds(int lX,int lY,int uX, int uY)
     {
         lowerX = lX;
         lowerY = lY;
         upperX = uX;
         upperY = uY;
-        reset();
+
+        x = (float) ((upperX-WIDTH)*Math.random());
+        y = 0;
     }
 
     public boolean move()
@@ -52,14 +63,14 @@ public class AndroidGuy
     // at the top of the screen again
     public void reset()
     {
-        x = (float) ((upperX-50)*Math.random());
+        x = (float) ((upperX-WIDTH)*Math.random());
         y = 0;
     }
 
     // Returns the rectangle enclosing the Guy. Used for collision detection
     public RectF getRect()
     {
-        return new RectF(x,y,x+WIDTH,x+HEIGHT);
+        return new RectF(x,y,x+WIDTH,y+HEIGHT);
     }
 
     public void draw(Canvas canvas)

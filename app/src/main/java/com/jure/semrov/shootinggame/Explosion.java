@@ -22,10 +22,11 @@ public class Explosion
 
     public Explosion(int color, Context c, float loc_x, float loc_y)
     {
-        explosion = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
-                mContext.getResources(),R.drawable.explosion),width,height,false);
-
         mContext = c;
+
+        explosion = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
+                mContext.getResources(), R.drawable.explosion), width, height, false);
+
         x = loc_x;
         y = loc_y;
         count = 30;

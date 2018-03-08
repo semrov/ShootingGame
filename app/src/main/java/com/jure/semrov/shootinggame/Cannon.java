@@ -11,6 +11,7 @@ import android.graphics.Paint;
 public class Cannon
 {
     private static final int WIDTH_LR = 30;
+    public static final int CANNON_HEIGHT = 40;
 
     // Cannon's center (x,y)
     float x=-1,y=-1;
@@ -71,8 +72,8 @@ public class Cannon
     public void draw(Canvas canvas)
     {
         canvas.drawLine(x,y-100,x,y,paint);
+        canvas.drawRect(x-10,y- CANNON_HEIGHT,x+10,y,paint);
         canvas.drawRect(x-WIDTH_LR,y-10,x+WIDTH_LR,y,paint);
-        canvas.drawRect(x-10,y-40,x+10,y,paint);
     }
 
 }
