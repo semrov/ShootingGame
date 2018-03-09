@@ -14,7 +14,6 @@ public class ShootingGame extends AppCompatActivity implements View.OnClickListe
 
     private ImageButton leftButton, shootButton, rightButton;
     private DrawView drawView;
-    private Menu menu;
     private boolean play_music;
     private MediaPlayer mediaPlayer;
 
@@ -52,8 +51,14 @@ public class ShootingGame extends AppCompatActivity implements View.OnClickListe
     {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu,menu);
-        this.menu = menu;
-
+        if(play_music)
+        {
+            menu.findItem(R.id.action_sound).setIcon(R.drawable.ic_volume_up_white_24dp);
+        }
+        else
+        {
+            menu.findItem(R.id.action_sound).setIcon(R.drawable.ic_volume_off_white_24dp);
+        }
         return true;
     }
 
@@ -67,6 +72,21 @@ public class ShootingGame extends AppCompatActivity implements View.OnClickListe
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        else if(id == R.id.action_sound)
+        {
+            if(play_music)
+            {
+                mediaPlayer.pause();
+                item.setIcon(R.drawable.ic_volume_off_white_24dp);
+            }
+            else
+            {
+                mediaPlayer.start();
+                item.setIcon(R.drawable.ic_volume_up_white_24dp);
+            }
+
+            play_music = !play_music;
         }
 
         return super.onOptionsItemSelected(item);
