@@ -33,6 +33,10 @@ public class ShootingGame extends AppCompatActivity implements View.OnClickListe
         rightButton.setOnClickListener(this);
         shootButton = findViewById(R.id.shootButton);
         shootButton.setOnClickListener(this);
+
+        // Set the context of the SoundEffects singleton class
+        //  Add context to the SoundEffects class
+        SoundEffects.INSTANCE.initSounds(this);
     }
 
     @Override
@@ -91,6 +95,7 @@ public class ShootingGame extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.shootButton:
                 drawView.shootCannon();
+                SoundEffects.INSTANCE.play_sound(SoundEffects.SOUND_SHOOT);
                 break;
             default:
                 Toast.makeText(this, "Unhandled button pressed: " + v.getId(),Toast.LENGTH_LONG).show();

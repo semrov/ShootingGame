@@ -151,6 +151,7 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
                 // Generate an explosion at that location and delete the Guy and bullet. Generate
                 // a new Android Guy to fall from the top.
                 if (RectF.intersects(guyRect, bullets.get(i).getRect())) {
+                    SoundEffects.INSTANCE.play_sound(SoundEffects.SOUND_EXPLOSION);
                     explosions.add(new Explosion(Color.RED,mContext, androidGuy.getX(), androidGuy.getY()));
                     androidGuy.reset();
                     bullets.remove(i);
@@ -162,6 +163,7 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
 
             if (!androidGuy.move()) {
                 score.decrementScore();
+                SoundEffects.INSTANCE.play_sound(SoundEffects.SOUND_ANDROID_GUY_FALLEN_OUT);
                 androidGuy.reset();
             }
         }
