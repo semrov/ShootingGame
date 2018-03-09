@@ -1,5 +1,6 @@
 package com.jure.semrov.shootinggame;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,8 @@ public class ShootingGame extends AppCompatActivity implements View.OnClickListe
     private ImageButton leftButton, shootButton, rightButton;
     private DrawView drawView;
     private Menu menu;
+    private boolean play_music;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,11 @@ public class ShootingGame extends AppCompatActivity implements View.OnClickListe
         // Set the context of the SoundEffects singleton class
         //  Add context to the SoundEffects class
         SoundEffects.INSTANCE.initSounds(this);
+
+        //create media player instance for playing music while playing the game
+        mediaPlayer = MediaPlayer.create(this,R.raw.braincandy);
+        mediaPlayer.setLooping(true);
+        play_music = true;
     }
 
     @Override
@@ -66,18 +74,33 @@ public class ShootingGame extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onPause() {
+        if(play_music)
+        {
+            mediaPlayer.pause();
+        }
         drawView.stopGame();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
-        drawView.resumeGame();
         super.onResume();
+        drawView.resumeGame();
+        if(play_music)
+        {
+            mediaPlayer.start();
+        }
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy()
+    {
+        mediaPlayer.stop();
+        mediaPlayer.reset();
+        mediaPlayer.release();
+        mediaPlayer = null;
+        play_music = false;
+
         super.onDestroy();
     }
 
